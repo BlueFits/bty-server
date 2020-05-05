@@ -42,7 +42,7 @@ exports.deleteGoal = (req, res, next) => {
         };
         User.findByIdAndUpdate(user._id, userUpdate, {}, (err) => {
             if (err) {return next(err);}
-            Goal.findByIdAndRemove(goalId, {}, (err) => {
+            Goal.findByIdAndDelete(goalId, {}, (err) => {
                 if (err) {return next(err);}
                 res.sendStatus(200);
             });
@@ -56,4 +56,12 @@ exports.setAsCompleted = (req, res, next) => {
         if (err) {return next(err);}
         res.sendStatus(200);
     });
+};
+
+exports.renameGoal = (req, res, next) => {
+    const { goalId, updateValue } = req.body;
+    Goal.findByIdAndUpdate(goalId, {$set:{ goalName: updateValue }}, {}, (err) => {
+        if (err) {return next(err);}
+        res.sendStatus(200);
+    }); 
 };

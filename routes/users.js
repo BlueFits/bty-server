@@ -10,9 +10,8 @@ router.get('/', function(req, res, next) {
 //Test User
 router.get("/fetch/:id", (req, res, next) => {
   const { id } = req.params;
-  User.findById(id).populate("goals").exec((err, user) => {
+  User.findById(id).populate({ path: "goals", populate: { path:"steps" } }).exec((err, user) => {
     if (err) {return next(err);}
-    console.log(`Found ${user.username}`);
     res.json(user);
   });
 });

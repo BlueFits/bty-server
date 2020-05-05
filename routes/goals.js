@@ -5,6 +5,7 @@ const {
     addGoal, 
     deleteGoal, 
     setAsCompleted, 
+    renameGoal,
 } = require("../controllers/goalsController");
 
 //Test User
@@ -17,5 +18,7 @@ router.post("/add", addGoal);
 router.post("/delete", deleteGoal);
 
 router.post("/setAsCompleted", setAsCompleted);
+
+router.post("/renameGoal", renameGoal);
 
 module.exports = router;

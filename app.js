@@ -6,13 +6,15 @@ const mongoose = require("mongoose");
 
 //Default mongoose connection
 const mongoDB = "mongodb+srv://admin_Christian:databasep@ssword22@cluster0-r9zhj.mongodb.net/test?retryWrites=true&w=majority"
-mongoose.connect(mongoDB, { useNewUrlParser: true });
+mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on("err", console.error.bind(console, "MongoDB connection error:"));
+mongoose.set("useFindAndModify", false);
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const goalsRouter = require("./routes/goals");
+const stepsRouter = require("./routes/steps");
 
 var app = express();
 
@@ -25,6 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use("/users/goals", goalsRouter);
+app.use("/users/steps",stepsRouter);
 
 module.exports = app;
 
