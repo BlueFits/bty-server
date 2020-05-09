@@ -1,5 +1,6 @@
 const Goal = require("../models/Goal");
 const Step = require("../models/Step");
+const Jwt = require("jsonwebtoken");
 
 exports.addStep = (req, res, next) => {
     const { goalId, stepToAdd } = req.body;
@@ -22,7 +23,7 @@ exports.addStep = (req, res, next) => {
                 res.json(newStep._id);
             });
         });
-    });
+    });   
 };
 
 exports.setStepAsCompleted = (req, res, next) => {
@@ -30,7 +31,7 @@ exports.setStepAsCompleted = (req, res, next) => {
     Step.findByIdAndUpdate(stepId, {$set:{ isComplete: true }}, {}, (err) => {
         if (err) {return next(err);} 
         res.sendStatus(200);
-    });
+    });  
 };
 
 exports.deleteStep = (req, res, next) => {

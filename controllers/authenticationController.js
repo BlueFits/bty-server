@@ -4,6 +4,14 @@ const Jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
+exports.fetch = (req, res, next) => {
+    const { id } = req.params;
+    User.findById(id).populate({ path: "goals", populate: { path:"steps", populate: { path: "tasks" }}}).exec((err, user) => {
+      if (err) {return next(err);}
+      res.json(user);
+    });
+};
+
 exports.register = (req, res, next) => {
     const { email, password } = req.body;    
     User.findOne({ email: email }).exec((err, result) => {
@@ -29,7 +37,6 @@ exports.register = (req, res, next) => {
 
 exports.login = (req, res, next) => {
     const { email, password } = req.body;
-    console.log(req.body);
     if (!email || !password) {
         res.status(400).send({ error: "Invalid Parameters" });
     } else {
@@ -45,12 +52,9 @@ exports.login = (req, res, next) => {
                     if (err) {return next(err);}
 
                     if (!isMatch) {
-                        console.log("Passwords dont match");
                         res.status(400).send({ error: "Invalid Password" });
                     } else {
                         //Passwords Matched
-                        console.log("Login log");
-                        console.log(user._id);
                         //What do I need this for?
                         const loggedInUser = {
                             id: user._id,

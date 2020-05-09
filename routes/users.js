@@ -1,8 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const Jwt = require("jsonwebtoken");
-const User = require("../models/User");
-const verifyToken = require("../config/TokenVerification");
+const { verifyHeader, verifyToken } = require("../config/routeVerfication");
 //Goals Controllers
 const { 
   addGoal, 
@@ -23,7 +21,8 @@ const {
 
 const { 
   register,
-  login, 
+  login,
+  fetch, 
 } = require("../controllers/authenticationController");
 
 
@@ -32,26 +31,8 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
-//Test User
-
-router.get("/createDummyUser/:email", (req, res, next) => {
-  const userInstance = new User({
-    email: req.params.email,
-    goals: [],
-  });
-  userInstance.save((err) => {
-    if (err) {return next(err);}
-    res.send(`Successfully created ${req.params.email}`);
-  });
-});
-
-router.get("/fetch/:id", (req, res, next) => {
-  const { id } = req.params;
-  User.findById(id).populate({ path: "goals", populate: { path:"steps", populate: { path: "tasks" }}}).exec((err, user) => {
-    if (err) {return next(err);}
-    res.json(user);
-  });
-});
+/* Fetch User */
+router.get("/fetch/:id", fetch);
 
 /* Registration */
 router.post("/register", register);
@@ -59,38 +40,34 @@ router.post("/register", register);
 router.post("/login", login);
 
 /* Goals -RouteProtected */
-router.post("/goals/add", verifyToken, addGoal);
+router.post("/goals/add", verifyToken, verifyHeader, addGoal);
 
-router.post("/goals/delete", verifyToken, deleteGoal);
+router.post("/goals/delete", verifyToken, verifyHeader, deleteGoal);
 
-router.post("/goals/setAsCompleted", verifyToken, setGoalAsCompleted);
+router.post("/goals/setAsCompleted", verifyToken, verifyHeader, setGoalAsCompleted);
 
-router.post("/goals/rename", verifyToken, renameGoal);
+router.post("/goals/rename", verifyToken, verifyHeader, renameGoal);
 
 //Protected Route
-router.get("/goals", verifyToken, (req, res, next) => {
-  Jwt.verify(req.token, "secretKey", (err, authData) => {
-    if (err) { res.sendStatus(403) }
-    console.log(authData);
-    res.send("Goals is working!");
-  });
+router.get("/goals", verifyToken, verifyHeader, (req, res, next) => {
+  res.send("Goals is protected");
 });
 
 /* Steps */
-router.post("/steps/add", addStep);
+router.post("/steps/add", verifyToken, verifyHeader, addStep);
 
-router.post("/steps/setAsCompleted", setStepAsCompleted);
+router.post("/steps/setAsCompleted", verifyToken, verifyHeader, setStepAsCompleted);
 
-router.post("/steps/delete", deleteStep);
+router.post("/steps/delete", verifyToken, verifyHeader, deleteStep);
 
-router.get("/steps", (req, res, next) => {
-  res.send("Steps Route!");
+router.get("/steps", verifyToken, verifyHeader, (req, res, next) => {
+  res.send("Steps working!");
 });
 
 /* Tasks */
-router.post("/tasks/update", updateTask);
+router.post("/tasks/update", verifyToken, verifyHeader, updateTask);
 
-router.get("/tasks", (req, res, next) => {
+router.get("/tasks", verifyToken, verifyHeader, (req, res, next) => {
   res.send("Working For Tasks!");
 });
 
