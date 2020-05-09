@@ -19,14 +19,13 @@ exports.addStep = (req, res, next) => {
             };
             Goal.findByIdAndUpdate(goal._id, update, {}, (err) => {
                 if (err) {return next(err);}
-                console.log(newStep._id);
                 res.json(newStep._id);
             });
         });
     });
 };
 
-exports.setAsCompleted = (req, res, next) => {
+exports.setStepAsCompleted = (req, res, next) => {
     const { stepId } = req.body;
     Step.findByIdAndUpdate(stepId, {$set:{ isComplete: true }}, {}, (err) => {
         if (err) {return next(err);} 

@@ -3,7 +3,8 @@ const Schema = mongoose.Schema;
 
 const TaskSchema = new Schema({
     taskDate: { type: String, required: true },
-    taskList: [{ type: String }],
+    tasksList: [{ type: String }],
+    createdAt: { type: Date, required: true, default: Date.now, expires: 345600 }
 });
 
 module.exports = mongoose.model("Task", TaskSchema);
