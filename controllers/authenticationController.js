@@ -75,3 +75,11 @@ exports.login = (req, res, next) => {
         });
     }
 };
+
+exports.deleteAccount = (req, res, next) => {
+    const { USER_ID } = req.body;
+    User.findByIdAndDelete(USER_ID).exec((err) => {
+        if (err) { res.status(400).send({ error: "Error occured in the server" }); }
+        res.sendStatus(200);
+    });
+}

@@ -23,6 +23,7 @@ const {
   register,
   login,
   fetch, 
+  deleteAccount,
 } = require("../controllers/authenticationController");
 
 
@@ -34,10 +35,12 @@ router.get('/', function(req, res, next) {
 /* Fetch User */
 router.get("/fetch/:id", fetch);
 
-/* Registration */
+/* Authentication */
 router.post("/register", register);
 
 router.post("/login", login);
+
+router.post("/delete", verifyToken, verifyHeader, deleteAccount);
 
 /* Goals -RouteProtected */
 router.post("/goals/add", verifyToken, verifyHeader, addGoal);
