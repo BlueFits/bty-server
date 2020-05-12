@@ -5,9 +5,12 @@ var logger = require('morgan');
 const mongoose = require("mongoose");
 const passport = require("passport");
 const session = require("express-session");
+const compression = require("compression");
+const helmet = require("helmet");
 
 //Default mongoose connection
-const mongoDB = "mongodb+srv://admin_Christian:databasep@ssword22@cluster0-r9zhj.mongodb.net/btyCollection?retryWrites=true&w=majority"
+const dev_db_url= "mongodb+srv://admin_Christian:databasep@ssword22@cluster0-r9zhj.mongodb.net/btyCollection?retryWrites=true&w=majority";
+const mongoDB = process.env.MONGODB_URI || dev_db_url;
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on("err", console.error.bind(console, "MongoDB connection error:"));
@@ -18,6 +21,10 @@ var usersRouter = require('./routes/users');
 const adminRouter = require("./routes/admin");
 
 var app = express();
+
+//For Production
+app.use(compression());
+app.use(helmet());
 
 //View Engine
 app.set("view engine", "pug");
