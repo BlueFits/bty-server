@@ -1,0 +1,11 @@
+doctype html
+html
+    header
+        title="error"
+    body   
+        p=msg
+        p="redirecting..."
+    script.
+        setTimeout(() => {
+            window.history.back(0); 
+        }, 2000);

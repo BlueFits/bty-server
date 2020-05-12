@@ -24,6 +24,7 @@ const {
   login,
   fetch, 
   deleteAccount,
+  userLog,
 } = require("../controllers/authenticationController");
 
 
@@ -31,6 +32,9 @@ const {
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
+
+/* Log User login  */
+router.post("/addLog", userLog);
 
 /* Fetch User */
 router.get("/fetch/:id", fetch);

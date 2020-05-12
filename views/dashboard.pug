@@ -1,0 +1,22 @@
+doctype html
+html
+    header
+        title="dashboard"
+        link(rel="stylesheet" href="/stylesheets/style.css")
+    body
+        div(class="contentWrapper")
+            h2="Menu"
+            p.
+                Logged in as #[strong #{admin.username}]
+        div(class="contentWrapper menuStyles")
+            p
+                a(href="/admin/dashboard")="Home"
+            p
+                a(href="/admin/userList")="List of Users"
+            p
+                a(href="/admin/logout")="Logout"
+        div(class="contentWrapper")
+            h2="BetterThanYesterday Statistics"
+            p="Registered Users: " + data.length
+                
+

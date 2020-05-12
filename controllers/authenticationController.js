@@ -54,6 +54,22 @@ exports.login = (req, res, next) => {
                     if (!isMatch) {
                         res.status(400).send({ error: "Invalid Password" });
                     } else {
+                        if (user.loggedAt.length <= 4) {
+                            User.findByIdAndUpdate(user._id, { $set: { loggedAt: [...user.loggedAt, new Date()] } }, {}, (err) => {
+                                if (err) {return next(err);}
+                            })
+                        } else {
+                            const userUpdate = {
+                                $set: {
+                                    loggedAt: user.loggedAt,
+                                }
+                            };
+                            userUpdate.$set.loggedAt.shift();
+                            userUpdate.$set.loggedAt.push(new Date());
+                            User.findByIdAndUpdate(user._id, userUpdate, {}, (err) => {
+                                if (err) {return next(err);}
+                            });
+                        }
                         //Passwords Matched
                         //What do I need this for?
                         const loggedInUser = {
@@ -75,6 +91,35 @@ exports.login = (req, res, next) => {
         });
     }
 };
+
+exports.userLog = (req, res, next) => {
+    const { userId } = req.body;
+    User.findById(userId).exec((err, user) => {
+        if (err) { return next(err); }
+        if (!user) {
+            res.status(400).send({ error: "Error in User log" });
+        } else {
+            if (user.loggedAt.length <= 4) {
+                User.findByIdAndUpdate(user._id, { $set: { loggedAt: [...user.loggedAt, new Date()] } }, {}, (err) => {
+                    if (err) {return next(err);}
+                    res.sendStatus(200);
+                })
+            } else {
+                const userUpdate = {
+                    $set: {
+                        loggedAt: user.loggedAt,
+                    }
+                };
+                userUpdate.$set.loggedAt.shift();
+                userUpdate.$set.loggedAt.push(new Date());
+                User.findByIdAndUpdate(user._id, userUpdate, {}, (err) => {
+                    if (err) {return next(err);}
+                    res.sendStatus(200);
+                });
+            }
+        }
+    });
+}
 
 exports.deleteAccount = (req, res, next) => {
     const { USER_ID } = req.body;
