@@ -23,33 +23,10 @@ html
                     const lastLogIn = !user.loggedAt[4] ? "Never Logged In" : moment(user.loggedAt[4]).format("dddd, MMMM Do YYYY, h:mm:ss a")
                 p= "Last logged in: " + lastLogIn
             div
-                -
-                    const loggedToday = user.loggedAt.filter((date) => {
-                        if (moment(date).format("ddd") === moment().format("dddd")) {
-                            return true;
-                        } else {
-                            return false;
-                        }
-                    })
-                p=`Logged in at least ${loggedToday.length} times today.`
-                -
-                    const loggedYesterday = user.loggedAt.filter((date) => {
-                        if (moment(date).format("ddd") === moment().subtract(1, "d").format("dddd")) {
-                            return true;
-                        } else {
-                            return false;
-                        }
-                    })
-                p=`Logged in at least ${loggedYesterday.length} times yesterday.`   
-                -
-                    const logged3DaysAgo = user.loggedAt.filter((date) => {
-                        if (moment(date).format("ddd") === moment().subtract(3, "d").format("dddd")) {
-                            return true;
-                        } else {
-                            return false;
-                        }
-                    })
-                p=`Logged in at least ${logged3DaysAgo.length} times on ${moment().subtract(3, "d").format("dddd")}.` 
+                p="Last 5 logs"
+                ul  
+                    each val in user.loggedAt
+                        li=moment(val).format("dddd, MMMM Do YYYY, h:mm:ss a")
                 
             
         
