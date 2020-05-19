@@ -41,6 +41,7 @@ exports.addVisitorInfo = (req, res, next) => {
                 res.sendStatus(200);
             });
         } else {
+            console.log("Ip already saved");
             res.sendStatus(204);
         }
     });
