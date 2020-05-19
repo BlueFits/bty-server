@@ -23,7 +23,7 @@ exports.collectEmail = (req, res, next) => {
 
 exports.addVisitorInfo = (req, res, next) => {
     const { ip } = req.body;
-    Visitor.findOne({  }).exec((err, result) => {
+    Visitor.findOne({ ip }).exec((err, result) => {
         if (err) {return next(err);}
         if (!result) {
             const geoInfo = geoip.lookup(ip);
