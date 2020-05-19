@@ -7,6 +7,7 @@ const passport = require("passport");
 const session = require("express-session");
 const compression = require("compression");
 const helmet = require("helmet");
+const cors = require("cors");
 
 //Default mongoose connection
 const dev_db_url= "mongodb+srv://admin_Christian:databasep@ssword22@cluster0-r9zhj.mongodb.net/btyCollection?retryWrites=true&w=majority";
@@ -34,6 +35,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors());
 
 //SESSION
 app.use(session({
