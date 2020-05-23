@@ -22,7 +22,7 @@ exports.collectEmail = (req, res, next) => {
 };
 
 exports.addVisitorInfo = (req, res, next) => {
-    const { ip } = req.body;
+    const { ip, referrer } = req.body;
     Visitor.findOne({ ip }).exec((err, result) => {
         if (err) {return next(err);}
         if (!result) {
@@ -34,6 +34,7 @@ exports.addVisitorInfo = (req, res, next) => {
                 timezone: geoInfo.timezone,
                 city: geoInfo.city,
                 eu: Number(geoInfo.eu),
+                referrer,
             });
 
             visitorInstance.save((err) => {

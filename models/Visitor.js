@@ -8,6 +8,7 @@ const VisitorSchema = new Schema({
     timezone: { type: String, default: "n/a" },
     city: { type:String, default: "n/a" },
     eu: { type: Number, default: -1 },
+    referrer: { type: String ,default: "n/a" },
     createdAt: { type: Date, default: Date.now },
 });
 
