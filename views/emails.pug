@@ -20,9 +20,13 @@ html
             p
                 a(href="/admin/logout")="Logout"
         div(class="contentWrapper")
-            h2="List of Users"
-            div
-                ul  
-                    each val in users
-                        li
-                            a(href=val.url)=val.email
+            h1="Emails"
+            each val in emails
+                li(style="list-style: none; border-bottom: 1px solid grey;")
+                  p=val.email
+                  p="Reffered from: " + val.referrer
+                  p=moment(val.createdAt).format("dddd, MMMM Do YYYY, h:mm:ss a")
+
+
+                
+

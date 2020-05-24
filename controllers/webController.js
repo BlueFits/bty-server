@@ -3,15 +3,15 @@ const Visitor = require("../models/Visitor");
 const geoip = require("geoip-lite");
 
 exports.collectEmail = (req, res, next) => {
-    const { email } = req.body;
-
+    const { email, referrer } = req.body;
     Email.findOne({ email }).exec((err, result) => {
         if (err) {return next(err);}
         if (result) {
             res.status(401).send({ msg: "Email already subscribed" });
         } else {
             const emailInstance = new Email({
-                email
+                email,
+                referrer,
             });
             emailInstance.save((err) => {
                 if (err) {return next(err);}

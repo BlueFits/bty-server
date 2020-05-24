@@ -94,3 +94,10 @@ exports.visitorsInfo = (req, res, next) => {
         res.render("visitors", { visitors, admin: req.user, moment });
     });
 };
+
+exports.emailsInfo = (req, res, next) => {
+    emails.exec((err, emails) => {
+        if (err) {return next(err)}
+        res.render("emails", { emails, admin: req.user, moment });
+    });
+};
