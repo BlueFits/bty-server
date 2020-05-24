@@ -1,7 +1,7 @@
 doctype html
 html
     header
-        title="dashboard"
+        title="visitors"
         link(rel="stylesheet" href="/stylesheets/style.css")
     body
         div(class="contentWrapper")
@@ -14,9 +14,14 @@ html
             p
                 a(href="/admin/userList")="List of Users"
             p
+                a(href="/admin/visitors")="Visitors"
+            p
                 a(href="/admin/logout")="Logout"
         div(class="contentWrapper")
             h2="BetterThanYesterday Statistics"
             p="Registered Users: " + data.length
+            h2="Landing Page Statistics"
+            p="Visitors: " + visitors.length
+            p="Emails collected: " + emails.length
                 
 

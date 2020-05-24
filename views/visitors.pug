@@ -1,0 +1,37 @@
+doctype html
+html
+    header
+        title="visitors"
+        link(rel="stylesheet" href="/stylesheets/style.css")
+    body
+        div(class="contentWrapper")
+            h2="Menu"
+            p.
+                Logged in as #[strong #{admin.username}]
+        div(class="contentWrapper menuStyles")
+            p
+                a(href="/admin/dashboard")="Home"
+            p
+                a(href="/admin/userList")="List of Users"
+            p
+                a(href="/admin/visitors")="Visitors"
+            p
+                a(href="/admin/logout")="Logout"
+        div(class="contentWrapper")
+            h1="Visitors Overview"
+            p="Total amount of visitors: " + visitors.length
+            p=`Total amount of visitors today(${moment(Date.now()).format("MMMM Do YYYY")}): `  
+                strong=visitors.filter(visitor => moment(visitor.createdAt).format("MMMM Do YYYY") === moment(Date.now()).format("MMMM Do YYYY")).length
+        div(class="contentWrapper")
+            h2="Visitor Logs"
+            ul  
+                each val in visitors.reverse()
+                    li(style="border-bottom: 1px solid grey")
+                        p=`${val.city}/${val.region}/${val.country}`
+                        p="Referred from "
+                            strong=val.referrer
+                        p=moment(val.createdAt).format("dddd, MMMM Do YYYY, h:mm:ss a")
+
+
+                
+

@@ -9,6 +9,7 @@ const {
     adminAuth, 
     create, 
     adminLogout,
+    visitorsInfo,
 } = require("../controllers/adminController");
 
 /* Admin Auth */
@@ -25,6 +26,8 @@ router.get("/dashboard", ensureAuthenticated, dashboard);
 router.get("/userList", ensureAuthenticated, userList);
 
 router.get("/information/:id", ensureAuthenticated, userInformation);
+
+router.get("/visitors", ensureAuthenticated, visitorsInfo);
 
 
 module.exports = router;
