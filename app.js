@@ -10,8 +10,9 @@ const helmet = require("helmet");
 const cors = require("cors");
 
 //Default mongoose connection
+const dev_db_url_backup = "mongodb+srv://admin_Christian:mJTSiseu7gEb6znq@cluster0-jcudp.mongodb.net/backupBty?retryWrites=true&w=majority";
 const dev_db_url= "mongodb+srv://admin_Christian:databasep@ssword22@cluster0-r9zhj.mongodb.net/btyCollection?retryWrites=true&w=majority";
-const mongoDB = process.env.MONGODB_URI || dev_db_url;
+const mongoDB = process.env.MONGODB_URI || dev_db_url_backup;
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on("err", console.error.bind(console, "MongoDB connection error:"));
