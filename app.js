@@ -13,7 +13,7 @@ const cors = require("cors");
 const Server = require("./config/Server");
 
 //Default mongoose connection
-const dev_db_url= Server.serverBackup;
+const dev_db_url= Server.server;
 const mongoDB = process.env.MONGODB_URI || dev_db_url;
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
