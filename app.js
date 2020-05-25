@@ -9,10 +9,12 @@ const compression = require("compression");
 const helmet = require("helmet");
 const cors = require("cors");
 
+//SERVER
+const Server = require("./config/Server");
+
 //Default mongoose connection
-const dev_db_url_backup = "mongodb+srv://admin_Christian:mJTSiseu7gEb6znq@cluster0-jcudp.mongodb.net/backupBty?retryWrites=true&w=majority";
-const dev_db_url= "mongodb+srv://admin_Christian:databasep@ssword22@cluster0-r9zhj.mongodb.net/btyCollection?retryWrites=true&w=majority";
-const mongoDB = process.env.MONGODB_URI || dev_db_url_backup;
+const dev_db_url= Server.serverBackup;
+const mongoDB = process.env.MONGODB_URI || dev_db_url;
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on("err", console.error.bind(console, "MongoDB connection error:"));
