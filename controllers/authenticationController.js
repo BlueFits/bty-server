@@ -78,7 +78,7 @@ exports.login = (req, res, next) => {
                             goals: user.goals,
                         };
                         
-                        Jwt.sign({ user: loggedInUser }, "secretKey", { expiresIn: "43200s" }, (err, token) => {
+                        Jwt.sign({ user: loggedInUser }, "secretKey", { expiresIn: "86400s" }, (err, token) => {
                             if (err) {return next(err);}
                             res.json({
                                 token,
