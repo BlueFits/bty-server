@@ -24,6 +24,13 @@ export class UserRoutes extends CommonRoutesConfig{
             UserController.patchLog
         ])
 
+        this.app.param("id", usersMiddleware.extractUserID);
+
+        this.app.route("/users/fetch/:id")
+        .get(
+            UserController.getUserByID
+        );
+
         return this.app;
     }
 };

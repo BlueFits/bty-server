@@ -30,6 +30,11 @@ class UserController {
 
         res.status(204).send({ user: newUser })
     }
+
+    async getUserByID(req: express.Request, res: express.Response) {
+        const user = await UsersDao.getUserByID(req.body.id)
+        res.status(200).send(user);
+    }
 };
 
 export default new UserController;

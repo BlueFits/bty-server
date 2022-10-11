@@ -21,7 +21,7 @@ class UsersDao {
     }    
 
     async getUserByID(userID: string) {
-        return this.User.findById(userID).exec();
+        return this.User.findById(userID).populate({ path: "goals", populate: { path:"steps", populate: { path: "tasks" }}}).exec();
     }
 
     async updateUserById(userID: string, userFields: PatchUserDto | PutUserDto) {
