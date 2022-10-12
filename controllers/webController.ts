@@ -5,6 +5,8 @@
 import { Request, Response } from "express";
 import EmailDao from "../dao/email.dao";
 
+import {  }  from "@models/Email";
+
 class WebController {
 
     async collectEmail(req: Request, res: Response) {
