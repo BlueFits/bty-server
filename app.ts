@@ -11,15 +11,18 @@ import cookieParser from "cookie-parser";
 import logger from "morgan";
 import debug from "debug";
 
+//Router
+import IndexRoutes from "./routes/index.routes.config";
+import UserRoutes from "./users/users.routes.config";
+
 
 //Routes
-import { UserRoutes } from "./users/users.routes.config";
 import { CommonRoutesConfig } from "./common/common.routes.config";
 
 const app: express.Application = express();
 const port: number = 3000;
-const routes: Array<CommonRoutesConfig> = [];
-const debugLog: debug.IDebugger = debug("app");
+// const routes: Array<CommonRoutesConfig> = [];
+// const debugLog: debug.IDebugger = debug("app");
 
 //For Production
 app.use(compression());
@@ -41,23 +44,23 @@ app.use(session({
     saveUninitialized: true,
 }));
 
+const indexRouter = new IndexRoutes("IndexRoutes").getRouter;
+const userRouter = new UserRoutes("UserRoutes").getRouter;
+
 //PASSPORT CONFIG FOR ADMIN
 // require("./config/passport")(passport);
 // app.use(passport.initialize());
 // app.use(passport.session());
 
 
-//User route
-routes.push(new UserRoutes(app));
-
+//Using router
+app.use("/", indexRouter);
+app.use("/users", userRouter);
 
 
 const runningMessage = `Server running at http://localhost:${port}`;
 
 app.listen(port, () => {
-    routes.forEach((route: CommonRoutesConfig) => {
-        debugLog("Routes configured for " + route.getName);
-    });
     console.log(runningMessage);
 });
 

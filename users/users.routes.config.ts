@@ -5,32 +5,33 @@ import usersMiddleware from "./middleware/users.middleware";
 //Controllers
 import UserController from "./controller/user.controller";
 
-export class UserRoutes extends CommonRoutesConfig{
-    constructor(app: express.Application) {
-        super(app, "UsersRoutes");
+class UserRoutes extends CommonRoutesConfig{
+    constructor(name: string) {
+        super(name, express.Router());
     }
 
-    configureRoute(): express.Application {
+    configureRoute(): void {
 
         //Create and read
-        this.app.route("/users")
+        this.router.route("/")
         .get((req: express.Request, res: express.Response) => {
             res.status(201).send({ msg: "success" });
         })
 
-        this.app.patch("/users/addLog", [
-            usersMiddleware.isIDValid,
-            usersMiddleware.validateUserExists,
-            UserController.patchLog
-        ])
+        // this.router.patch("/users/addLog", [
+        //     usersMiddleware.isIDValid,
+        //     usersMiddleware.validateUserExists,
+        //     UserController.patchLog
+        // ])
 
-        this.app.param("id", usersMiddleware.extractUserID);
+        // this.router.param("id", usersMiddleware.extractUserID);
 
-        this.app.route("/users/fetch/:id")
-        .get(
-            UserController.getUserByID
-        );
+        // this.router.route("/users/fetch/:id")
+        // .get(
+        //     UserController.getUserByID
+        // );
 
-        return this.app;
     }
 };
+
+export default UserRoutes;

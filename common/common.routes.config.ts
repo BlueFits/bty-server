@@ -2,18 +2,22 @@ import express from "express";
 
 export abstract class CommonRoutesConfig {
     protected name: string;
-    protected app: express.Application; 
+    protected router: express.Router;
 
-    constructor(app: express.Application, name: string) {
-        this.app = app;
-        this.name = name
+    constructor(name: string, router: express.Router) {
+        this.name = name;
+        this.router = router;
         this.configureRoute();
     }
 
-    abstract configureRoute(): express.Application;
+    abstract configureRoute(): void;
 
     get getName() {
         return this.name;
+    }
+
+    get getRouter() {
+        return this.router;
     }
 
 };
