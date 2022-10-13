@@ -1,5 +1,5 @@
-const Step = require("../models/Step");
-const Task = require("../models/Task");
+const Step = require("../dao/models/Step");
+const Task = require("../dao/models/Task");
 
 exports.updateTask = (req, res, next) => {
     const { stepId, task, currentDate, } = req.body; 

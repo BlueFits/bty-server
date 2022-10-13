@@ -1,4 +1,4 @@
-const User = require("../models/User");
+const User = require("../dao/models/User");
 const Jwt = require("jsonwebtoken");
 //Bcrypt Init
 const bcrypt = require("bcrypt");

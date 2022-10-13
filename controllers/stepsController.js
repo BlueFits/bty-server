@@ -1,5 +1,5 @@
-const Goal = require("../models/Goal");
-const Step = require("../models/Step");
+const Goal = require("../dao/models/Goal");
+const Step = require("../dao/models/Step");
 const Jwt = require("jsonwebtoken");
 
 exports.addStep = (req, res, next) => {

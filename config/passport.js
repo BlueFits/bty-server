@@ -1,7 +1,7 @@
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcrypt");
 
-const Admin = require("../models/Admin");
+const Admin = require("../dao/models/Admin");
 
 module.exports = (passport) => {
     passport.use(

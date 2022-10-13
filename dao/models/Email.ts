@@ -1,4 +1,5 @@
-const mongoose = require("mongoose");
+import mongooseService from "../../common/services/mongoose.service";
+const mongoose = mongooseService.getMongoose
 const Schema = mongoose.Schema;
 
 const EmailSchema = new Schema({
@@ -7,4 +8,4 @@ const EmailSchema = new Schema({
     createdAt: { type: Date, default: Date.now },
 });
 
-module.exports = mongoose.model("Email", EmailSchema);
+export default mongoose.model("Email", EmailSchema);
